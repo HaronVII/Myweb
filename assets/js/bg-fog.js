@@ -57,17 +57,37 @@
     ctx.putImageData(img, 0, 0);
   }
 
+  let running = false;
+  let rafId = 0;
+
   function tick(){
+    if (!running) return;
     ctx.clearRect(0, 0, w, h);
     for(let i = 0; i < LAYERS; i++){
       drawLayer(i);
     }
     t += 1;
-    requestAnimationFrame(tick);
+    rafId = requestAnimationFrame(tick);
   }
 
-  resize();
-  requestAnimationFrame(tick);
+  function start() {
+    if (running) return;
+    running = true;
+    resize();
+    rafId = requestAnimationFrame(tick);
+  }
+
+  function stop() {
+    running = false;
+    cancelAnimationFrame(rafId);
+    rafId = 0;
+  }
 
   window.addEventListener("resize", resize);
+
+  if (window.AnimationManager) {
+    window.AnimationManager.register("bg-fog", { start, stop });
+  } else {
+    start();
+  }
 })();
