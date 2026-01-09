@@ -28,7 +28,7 @@
 <canvas id="bg-fog" aria-hidden="true"></canvas>
 
 <header class="home-hero">
-  <div class="home-hero-text">
+  <div class="home-hero-left">
     <h1 class="home-title">Professional Systems Hub</h1>
     <p class="home-subtitle">
       Архитектура профессиональных ролей.<br>
@@ -37,13 +37,50 @@
     </p>
   </div>
 
-  <div class="home-visual" aria-hidden="true"></div>
+  <!-- ВЕРХНИЕ РЕЖИМЫ (на уровне шапки) -->
+  <div class="home-modes" role="tablist" aria-label="Home modes">
+    <button class="home-mode" type="button" data-mode="recruiter" aria-pressed="false">Recruiter</button>
+    <button class="home-mode" type="button" data-mode="architect" aria-pressed="false">Architect</button>
+    <button class="home-mode" type="button" data-mode="personal" aria-pressed="false">Personal</button>
+  </div>
+
+  <!-- ПРАВАЯ КАРТА -->
+  <div class="home-panel">
+  <div class="home-panel-kicker" id="panel-kicker">Profile snapshot</div>
+  <div class="home-panel-title" id="panel-title">Denis · Systems & Automation</div>
+
+  <div class="home-panel-text" id="panel-text">
+    Режим: Recruiter — коротко и по делу: ценность, сильные стороны, результаты.
+  </div>
+
+  <div class="home-panel-stats" aria-label="Key metrics">
+    <div class="stat">
+      <span class="stat-num" id="stat-1-num">12</span>
+      <span class="stat-label" id="stat-1-label">Projects</span>
+    </div>
+    <div class="stat">
+      <span class="stat-num" id="stat-2-num">6</span>
+      <span class="stat-label" id="stat-2-label">Systems</span>
+    </div>
+    <div class="stat">
+      <span class="stat-num" id="stat-3-num">48</span>
+      <span class="stat-label" id="stat-3-label">Notes</span>
+    </div>
+  </div>
+
+  <div class="home-panel-actions" id="panel-actions">
+    <a class="home-btn" href="../resume/crm-bitrix24.html">Open CRM →</a>
+    <a class="home-btn ghost" href="../kb/index.html">Knowledge →</a>
+  </div>
+</div>
+
 </header>
+
 
 <main class="home-main">
   <section class="home-grid animate-cards" aria-label="Направления резюме">
 
-    <a class="home-card featured active" href="../resume/crm-bitrix24.html">
+    <a class="home-card featured active" data-module="crm" href="../resume/crm-bitrix24.html">
   <div class="home-card-header">
     <div class="home-card-title">CRM & Business Automation</div>
     <span class="home-status active">Active</span>
@@ -67,7 +104,7 @@
 </a>
 
 
-    <a class="home-card active" href="../resume/sysadmin.html">
+    <a class="home-card active" data-module="infra" href="../resume/sysadmin.html">
   <div class="home-card-header">
     <div class="home-card-title">IT / Infrastructure</div>
     <span class="home-status active">Active</span>
@@ -90,7 +127,7 @@
 </a>
 
 
-    <a class="home-card" href="../resume/devops.html">
+    <a class="home-card" data-module="product" href="../resume/devops.html">
       <div class="home-card-title">DevOps</div>
       <div class="home-card-desc">
         Контейнеризация, деплой, CI/CD и управление жизненным циклом сервисов.
@@ -98,7 +135,7 @@
       <span class="home-tag">Automation</span>
     </a>
 
-    <a class="home-card" href="#">
+    <a class="home-card" data-module="strotegy" href="#">
       <div class="home-card-title">Product & Business</div>
       <div class="home-card-desc">
         Логика продукта, ценность, стратегия и рост.
@@ -106,7 +143,7 @@
       <span class="home-tag">Strategy</span>
     </a>
 
-    <a class="home-card active" href="#">
+    <a class="home-card active" data-module="creative" href="#">
   <div class="home-card-header">
     <div class="home-card-title">Creative&Concepts</div>
     <span class="home-status active">Vision</span>
@@ -129,7 +166,7 @@
 </a>
 
 
-    <a class="home-card future planned" href="../kb/index.html">
+    <a class="home-card future planned" data-module="knowledge" href="../kb/index.html">
   <div class="home-card-header">
     <div class="home-card-title">Knowledge Base</div>
     <span class="home-status planned">Planned</span>
@@ -150,7 +187,7 @@
 </a>
 
 
-    <a class="home-card active" href="#">
+    <a class="home-card active" data-module="research" href="#">
   <div class="home-card-header">
     <div class="home-card-title">Research & Experiments</div>
     <span class="home-status active">Planned</span>
@@ -184,6 +221,8 @@
 <script src="../assets/js/main.js"></script>
 <script src="../assets/js/animations.js"></script>
 <script src="../assets/js/bg-stars.js"></script>
+<script src="../assets/js/home-modes.js"></script>
+
 
 
 </body>

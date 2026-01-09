@@ -1,4 +1,3 @@
-
 /* ===============================
    BITRIX COMPONENTS
 ================================= */
@@ -171,6 +170,18 @@
    HOME (CONTROL PANEL)
 ================================= */
 
+/* HERO */
+.home-hero{
+  position: relative;
+  padding: 80px 8vw 60px;
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: 48px;
+  align-items: start;
+}
+
+.home-hero-left{ align-self: center; }
+
 .home-title {
   font-family: 'Orbitron', sans-serif;
   font-size: clamp(36px, 4.5vw, 64px);
@@ -185,28 +196,146 @@
   font-size: 16px;
 }
 
-.home-visual {
-  height: 300px;
-  background: linear-gradient(135deg, var(--accent-soft), transparent);
-  border: 1px solid var(--border-glow);
-  border-radius: 28px;
-  position: relative;
-  overflow: hidden;
-}
-
-.home-visual::after {
-  content: "";
+/* MODES TOGGLE (single source of truth) */
+.home-modes{
   position: absolute;
-  inset: 0;
-  background: repeating-linear-gradient(
-    120deg,
-    transparent,
-    transparent 14px,
-    rgba(255,255,255,0.04) 14px,
-    rgba(255,255,255,0.04) 28px
-  );
+  top: 18px;
+  right: 8vw;
+  z-index: 5;
+
+  display: inline-flex;
+  gap: 10px;
+  padding: 10px;
+
+  width: fit-content;
+  max-width: none;
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 999px;
+  background: rgba(0,0,0,0.18);
+  backdrop-filter: blur(8px);
 }
 
+.home-mode{
+  border: 1px solid rgba(255,255,255,0.10);
+  background: rgba(255,255,255,0.03);
+  color: var(--text-muted);
+  padding: 8px 12px;
+  border-radius: 999px;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease;
+}
+
+.home-mode:hover{
+  transform: translateY(-1px);
+  border-color: rgba(56,189,248,0.25);
+}
+
+.home-mode.is-active{
+  color: var(--text-main);
+  border-color: rgba(56,189,248,0.45);
+  background: rgba(56,189,248,0.10);
+  box-shadow: 0 0 0 4px rgba(56,189,248,0.10);
+}
+
+/* RIGHT PANEL */
+.home-panel{
+  height: 300px;
+  border-radius: 28px;
+  border: 1px solid rgba(56,189,248,0.22);
+  background: linear-gradient(135deg, rgba(56,189,248,0.08), rgba(0,0,0,0.0));
+  overflow: hidden;
+  position: relative;
+  padding: 40px 22px 18px;
+}
+
+.home-panel::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background: radial-gradient(600px 240px at 20% 20%, rgba(56,189,248,0.10), transparent 60%);
+  pointer-events:none;
+}
+
+.home-panel *{ position: relative; z-index: 1; }
+
+.home-panel-kicker{
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 10px;
+}
+
+.home-panel-title{
+  font-family: 'Orbitron', sans-serif;
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+.home-panel-text{
+  color: var(--text-muted);
+  font-size: 14px;
+  line-height: 1.55;
+  max-width: 52ch;
+  margin-bottom: 16px;
+}
+
+/* mini stats */
+.home-panel-stats{
+  display: flex;
+  gap: 14px;
+  margin-bottom: 14px;
+}
+
+.stat{
+  border: 1px solid rgba(255,255,255,0.08);
+  background: rgba(255,255,255,0.03);
+  border-radius: 14px;
+  padding: 10px 12px;
+  min-width: 92px;
+}
+
+.stat-num{
+  display:block;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 16px;
+  color: var(--text-main);
+}
+
+.stat-label{
+  display:block;
+  font-size: 12px;
+  color: var(--text-muted);
+  margin-top: 4px;
+}
+
+/* actions */
+.home-panel-actions{
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.home-btn{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  padding: 8px 12px;
+  border-radius: 999px;
+  text-decoration:none;
+  color: var(--text-main);
+  border: 1px solid rgba(56,189,248,0.35);
+  background: rgba(56,189,248,0.10);
+}
+
+.home-btn.ghost{
+  border-color: rgba(255,255,255,0.12);
+  background: rgba(255,255,255,0.04);
+  color: var(--text-muted);
+}
+
+/* GRID */
 .home-grid {
   display: grid;
   grid-template-columns: repeat(12, 1fr);
@@ -380,29 +509,7 @@
     0 0 40px rgba(56,189,248,0.35);
 }
 
-/* APPEAR ANIMATION */
-.animate-cards .home-card {
-  opacity: 0;
-  transform: translateY(24px) scale(0.98);
-  animation: card-enter 0.7s ease forwards;
-}
-
-.animate-cards .home-card:nth-child(1) { animation-delay: 0.05s; }
-.animate-cards .home-card:nth-child(2) { animation-delay: 0.12s; }
-.animate-cards .home-card:nth-child(3) { animation-delay: 0.19s; }
-.animate-cards .home-card:nth-child(4) { animation-delay: 0.26s; }
-.animate-cards .home-card:nth-child(5) { animation-delay: 0.33s; }
-.animate-cards .home-card:nth-child(6) { animation-delay: 0.40s; }
-.animate-cards .home-card:nth-child(7) { animation-delay: 0.47s; }
-
-@keyframes card-enter {
-  to {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-  }
-}
-
-/* FEATURED: PULSE GLOW + THIN OUTLINE (и НЕ ломаем появление!) */
+/* FEATURED: PULSE GLOW + THIN OUTLINE (не ломаем hover/focus) */
 .home-card.featured { position: relative; }
 
 .home-card.featured::before{
@@ -421,19 +528,10 @@
   animation: featured-outline-pulse 2.8s ease-in-out infinite;
 }
 
-/* комбинируем две анимации ТОЛЬКО когда включена animate-cards */
-.animate-cards .home-card.featured{
-  animation:
-    card-enter 0.7s ease forwards,
-    featured-glow-pulse 2.8s ease-in-out infinite;
-}
-
-/* если animate-cards нет — просто пульс */
 .home-card.featured{
   animation: featured-glow-pulse 2.8s ease-in-out infinite;
 }
 
-/* hover/focus: стабилизируем (не “качает”) */
 .home-card.featured:hover,
 .home-card.featured:focus-visible{
   animation-play-state: paused;
@@ -493,16 +591,77 @@
 #bg-stars { opacity: 0.55; }
 #bg-fog   { opacity: 0.35; mix-blend-mode: screen; }
 
-/* чтобы контент был поверх canvas */
+/* content above canvas */
 .home-hero, .home-main, .home-footer{
   position: relative;
   z-index: 1;
 }
 
+/* ===== MODE TRANSITION + CASCADE (single implementation) ===== */
+.home-panel,
+.home-grid .home-card{
+  transition: opacity 180ms ease, transform 180ms ease;
+  will-change: opacity, transform;
+}
+
+/* fading state (panel and each card) */
+.home-panel.is-fading,
+.home-grid .home-card.is-fading{
+  opacity: 0;
+  transform: translateY(8px);
+}
+
+/* cascade delays on fade-in */
+.home-grid.is-cascade .home-card{
+  transition-delay: var(--delay, 0ms);
+}
+
+/* panel always no delay */
+.home-panel{
+  transition-delay: 0ms;
+}
+
 /* reduced motion */
 @media (prefers-reduced-motion: reduce){
   #bg-stars, #bg-fog { display:none; }
-  .animate-cards .home-card { animation: none; opacity: 1; transform: none; }
   .home-card.featured,
   .home-card.featured::before{ animation: none; }
+
+  .home-panel,
+  .home-grid .home-card{
+    transition: none;
+  }
+  .home-panel.is-fading,
+  .home-grid .home-card.is-fading{
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* responsive */
+@media (max-width: 900px){
+  .home-hero{
+    grid-template-columns: 1fr;
+  }
+
+  .home-modes{
+    position: static;
+    margin-top: 18px;
+    justify-self: start;
+  }
+
+  .home-panel{
+    height: auto;
+    min-height: 260px;
+  }
+
+  .home-grid{
+    grid-template-columns: repeat(6, 1fr);
+  }
+
+  .home-card,
+  .home-card.featured{
+    grid-column: span 6;
+    grid-row: span 1;
+  }
 }
