@@ -1,0 +1,19 @@
+/* ===== KB THEME ===== */
+:root{
+  --kb-bg:#0b1020;
+  --kb-panel:#111a33;
+  --kb-panel2:#0f1730;
+  --kb-text:#e8eeff;
+  --kb-muted:#9fb0da;
+  --kb-accent:#2fc6f6;
+  --kb-border:rgba(255,255,255,.08);
+  --kb-shadow: 0 18px 45px rgba(0,0,0,.45);
+  --kb-radius:16px;
+}
+
+body.kb{
+  background: radial-gradient(1200px 800px at 15% 20%, rgba(47,198,246,.18), transparent 60%),
+              radial-gradient(900px 700px at 90% 10%, rgba(155,89,182,.14), transparent 55%),
+              var(--kb-bg);
+  color: var(--kb-text);
+}

@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Knowledge Base</title>
+
+  <!-- базовые стили (если у тебя там только reset/шрифт) -->
+  <link rel="stylesheet" href="../assets/css/base.css">
+
+  <!-- тема KB -->
+  <link rel="stylesheet" href="../assets/css/theme-kb.css">
+
+  <!-- стили KB (скоупнутые) -->
+  <link rel="stylesheet" href="../assets/css/kb.css">
+</head>
+
+<body class="kb">
+
+<header class="kb-header">
+  <div class="kb-wrap kb-topbar">
+    <div class="kb-brand">
+      <span class="kb-dot" aria-hidden="true"></span>
+      <div>
+        <div class="kb-title">Knowledge Base</div>
+        <div class="kb-subtitle">Заметки + wiki-ссылки [[...]] + граф</div>
+      </div>
+    </div>
+
+    <div class="kb-tabs">
+      <button class="kb-tab active" data-view="notes" type="button">Notes</button>
+      <button class="kb-tab" data-view="graph" type="button">Graph</button>
+      <a class="kb-back" href="../home/index.html">← Back to Hub</a>
+    </div>
+  </div>
+</header>
+
+<main class="kb-main">
+  <div class="kb-grid">
+
+    <!-- LEFT: LIST -->
+    <section class="kb-panel">
+      <h3 class="kb-h3">Заметки</h3>
+
+      <div class="kb-list-tools">
+        <input class="kb-search" type="text" id="searchInput" placeholder="Поиск заметок… (Ctrl+K)" />
+      </div>
+
+      <div class="kb-list" id="noteList"></div>
+    </section>
+
+    <!-- RIGHT: EDITOR -->
+    <section class="kb-panel" id="view-notes">
+      <div class="kb-editor">
+        <div class="kb-toolbar">
+          <input type="text" id="titleInput" placeholder="Название заметки" />
+          <button class="primary" id="newBtn" type="button">+ New</button>
+          <button id="saveBtn" type="button">Save</button>
+
+          <button id="importBtn" type="button">Import JSON</button>
+          <button id="exportBtn" type="button">Export JSON</button>
+
+          <button class="danger" id="deleteBtn" type="button">Delete</button>
+
+          <span class="kb-status" id="statusText">saved</span>
+        </div>
+
+        <textarea id="bodyInput" placeholder="Пиши текст… поддержка ссылок: [[Bitrix]] [[CRM-процесс]]"></textarea>
+
+        <div class="kb-hint">
+          Используй <b>[[название]]</b> для связей. Во вкладке <b>Graph</b> появятся узлы и связи.<br>
+          Горячие клавиши: <b>Ctrl+S</b> сохранить, <b>Ctrl+K</b> поиск.
+        </div>
+      </div>
+    </section>
+
+    <!-- RIGHT: GRAPH -->
+    <section class="kb-panel" id="view-graph" style="display:none;">
+      <div class="kb-graphWrap">
+        <div class="kb-toolbar">
+          <button id="rebuildBtn" class="primary" type="button">Rebuild graph</button>
+          <button id="fitBtn" type="button">Fit</button>
+          <span class="kb-muted">Клик по узлу — открыть заметку</span>
+        </div>
+
+        <div class="kb-canvasBox">
+          <canvas id="graph"></canvas>
+        </div>
+      </div>
+    </section>
+
+  </div>
+</main>
+
+<script src="../assets/js/kb.js"></script>
+</body>
+</html>

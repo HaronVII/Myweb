@@ -1,0 +1,94 @@
+header {
+  padding: 60px 8vw 40px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  align-items: center;
+}
+
+main {
+  padding: 40px 6vw 80px;
+}
+
+footer {
+  padding: 40px 6vw;
+  border-top: 1px solid rgba(255,255,255,0.06);
+  color: var(--text-muted);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 14px;
+}
+
+
+
+
+/* ===== Bitrix Layout ===== */
+.bx-header {
+  padding: 60px 8vw 40px;
+  position: relative;
+  overflow: hidden;
+}
+
+.bx-header::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    120deg,
+    rgba(255,255,255,0.08),
+    rgba(255,255,255,0.08) 1px,
+    transparent 1px,
+    transparent 16px
+  );
+  opacity: 0.35;
+}
+
+.bx-header-inner {
+  position: relative;
+  z-index: 1;
+  max-width: 1100px;
+}
+
+.bx-main {
+  padding: 60px 6vw 80px;
+  max-width: 1200px;
+}
+
+.bx-grid {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 28px;
+}
+
+.bx-footer {
+  padding: 40px 6vw;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 14px;
+}
+
+
+/* ===== HOME LAYOUT ===== */
+.home-hero {
+  padding: 80px 8vw 60px;
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: 48px;
+  align-items: center;
+}
+
+.home-main {
+  padding: 40px 6vw 100px;
+}
+
+.home-footer {
+  padding: 48px 6vw;
+  border-top: 1px solid rgba(255,255,255,0.08);
+  color: var(--text-muted);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 14px;
+}

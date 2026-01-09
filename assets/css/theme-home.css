@@ -1,0 +1,16 @@
+/* ===== HOME THEME ===== */
+:root {
+  --bg-main: #0b0f14;
+  --bg-secondary: #111827;
+  --accent: #38bdf8;
+  --accent-soft: rgba(56,189,248,0.15);
+  --text-main: #e5e7eb;
+  --text-muted: #9ca3af;
+  --border-glow: rgba(56,189,248,0.35);
+  --future: rgba(167,139,250,0.4);
+}
+
+body {
+  background: radial-gradient(circle at 20% 20%, #0f172a, var(--bg-main));
+  color: var(--text-main);
+}
