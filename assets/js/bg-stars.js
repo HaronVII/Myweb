@@ -87,7 +87,11 @@
     ctx.fill();
   }
 
+  let running = false;
+  let rafId = 0;
+
   function tick(ts) {
+    if (!running) return;
     ctx.clearRect(0, 0, w, h);
 
     // цвет “звёзд”
@@ -116,15 +120,31 @@
       if (Math.random() < 0.75) spawnShooting();
     }
 
-    requestAnimationFrame(tick);
+    rafId = requestAnimationFrame(tick);
   }
 
-  resize();
-  init();
-  requestAnimationFrame(tick);
+  function start() {
+    if (running) return;
+    running = true;
+    resize();
+    init();
+    rafId = requestAnimationFrame(tick);
+  }
+
+  function stop() {
+    running = false;
+    cancelAnimationFrame(rafId);
+    rafId = 0;
+  }
 
   window.addEventListener("resize", () => {
     resize();
     init();
   });
+
+  if (window.AnimationManager) {
+    window.AnimationManager.register("bg-stars", { start, stop });
+  } else {
+    start();
+  }
 })();

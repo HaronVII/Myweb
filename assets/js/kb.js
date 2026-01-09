@@ -37,6 +37,7 @@
     view: { x: 0, y: 0, scale: 1 },
     running: false,
     raf: 0,
+    lastTick: 0,
   };
 
   // Helpers
@@ -187,6 +188,7 @@
     if (name === "notes") {
       viewNotes.style.display = "";
       viewGraph.style.display = "none";
+      stopGraph();
     } else {
       viewNotes.style.display = "none";
       viewGraph.style.display = "";
@@ -325,7 +327,7 @@
   }
 
   function resizeCanvas() {
-    if (!canvas) return;
+    if (!canvas || !ctx) return;
     const box = canvas.parentElement;
     if (!box) return;
 
@@ -381,10 +383,21 @@
   function startGraph() {
     if (graphState.running) return;
     graphState.running = true;
+    graphState.lastTick = 0;
 
-    const step = () => {
-      tick();
-      drawGraph();
+    const targetFrameMs = 1000 / 30;
+
+    const step = (ts) => {
+      if (!graphState.running) return;
+      if (!graphState.lastTick) graphState.lastTick = ts;
+
+      const elapsed = ts - graphState.lastTick;
+      if (elapsed >= targetFrameMs) {
+        const dt = Math.min(2, elapsed / (1000 / 60));
+        graphState.lastTick = ts;
+        tick(dt);
+        drawGraph();
+      }
       graphState.raf = requestAnimationFrame(step);
     };
     graphState.raf = requestAnimationFrame(step);
@@ -395,34 +408,120 @@
     cancelAnimationFrame(graphState.raf);
   }
 
-  function tick() {
+  class Quadtree {
+    constructor(x, y, size) {
+      this.x = x;
+      this.y = y;
+      this.size = size;
+      this.mass = 0;
+      this.cx = 0;
+      this.cy = 0;
+      this.point = null;
+      this.children = null;
+    }
+
+    contains(p) {
+      return p.x >= this.x && p.x <= this.x + this.size &&
+        p.y >= this.y && p.y <= this.y + this.size;
+    }
+
+    addMass(p) {
+      const m = this.mass;
+      this.mass = m + 1;
+      this.cx = (this.cx * m + p.x) / this.mass;
+      this.cy = (this.cy * m + p.y) / this.mass;
+    }
+
+    subdivide() {
+      const half = this.size / 2;
+      this.children = [
+        new Quadtree(this.x, this.y, half),
+        new Quadtree(this.x + half, this.y, half),
+        new Quadtree(this.x, this.y + half, half),
+        new Quadtree(this.x + half, this.y + half, half),
+      ];
+    }
+
+    insert(p) {
+      if (!this.contains(p)) return false;
+      this.addMass(p);
+
+      if (!this.point && !this.children) {
+        this.point = p;
+        return true;
+      }
+
+      if (!this.children) {
+        this.subdivide();
+        if (this.point) {
+          this.children.some(child => child.insert(this.point));
+          this.point = null;
+        }
+      }
+
+      return this.children.some(child => child.insert(p));
+    }
+  }
+
+  function buildQuadtree(nodes) {
+    if (!nodes.length) return null;
+    let minX = Infinity;
+    let minY = Infinity;
+    let maxX = -Infinity;
+    let maxY = -Infinity;
+
+    nodes.forEach(n => {
+      minX = Math.min(minX, n.x);
+      minY = Math.min(minY, n.y);
+      maxX = Math.max(maxX, n.x);
+      maxY = Math.max(maxY, n.y);
+    });
+
+    const size = Math.max(1, Math.max(maxX - minX, maxY - minY)) + 120;
+    const cx = (minX + maxX) / 2;
+    const cy = (minY + maxY) / 2;
+    const root = new Quadtree(cx - size / 2, cy - size / 2, size);
+    nodes.forEach(n => root.insert(n));
+    return root;
+  }
+
+  function applyRepulsion(node, quad, theta, repulsion, softening, dt) {
+    if (!quad || quad.mass === 0) return;
+    const dx = node.x - quad.cx;
+    const dy = node.y - quad.cy;
+    const dist = Math.sqrt(dx * dx + dy * dy) + softening;
+
+    if (quad.point === node && !quad.children) return;
+
+    if (!quad.children || (quad.size / dist) < theta) {
+      const force = (repulsion * quad.mass) / (dist * dist);
+      node.vx += (dx / dist) * force * dt;
+      node.vy += (dy / dist) * force * dt;
+      return;
+    }
+
+    quad.children.forEach(child => applyRepulsion(node, child, theta, repulsion, softening, dt));
+  }
+
+  function tick(dt) {
     const nodes = graphState.nodes;
     const edges = graphState.edges;
 
     if (nodes.length === 0) return;
 
     // physics params
-    const repulsion = 9000;
+    const repulsion = 4200;
     const spring = 0.0026;
     const springLen = 140;
     const damp = 0.86;
+    const theta = 0.6;
+    const softening = 1.2;
 
-    // repulsion (naive O(n^2), ok for small KB)
-    for (let i = 0; i < nodes.length; i++) {
-      for (let j = i + 1; j < nodes.length; j++) {
-        const a = nodes[i], b = nodes[j];
-        let dx = a.x - b.x;
-        let dy = a.y - b.y;
-        let d2 = dx * dx + dy * dy + 0.01;
-        const f = repulsion / d2;
-        const invD = 1 / Math.sqrt(d2);
-        dx *= invD; dy *= invD;
-        a.vx += dx * f;
-        a.vy += dy * f;
-        b.vx -= dx * f;
-        b.vy -= dy * f;
-      }
-    }
+    const quad = buildQuadtree(nodes);
+
+    nodes.forEach(n => {
+      applyRepulsion(n, quad, theta, repulsion, softening, dt);
+    });
 
     // springs (FAST via byId)
     edges.forEach(e => {
@@ -437,16 +536,17 @@
       const fx = (dx / dist) * diff * spring;
       const fy = (dy / dist) * diff * spring;
 
-      a.vx += fx; a.vy += fy;
-      b.vx -= fx; b.vy -= fy;
+      a.vx += fx * dt; a.vy += fy * dt;
+      b.vx -= fx * dt; b.vy -= fy * dt;
     });
 
     // integrate
     nodes.forEach(n => {
-      n.vx *= damp;
-      n.vy *= damp;
-      n.x += n.vx;
-      n.y += n.vy;
+      const decay = Math.pow(damp, dt);
+      n.vx *= decay;
+      n.vy *= decay;
+      n.x += n.vx * dt;
+      n.y += n.vy * dt;
     });
   }
 
