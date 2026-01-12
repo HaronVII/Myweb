@@ -1,0 +1,59 @@
+@media (max-width: 900px) {
+  header {
+    grid-template-columns: 1fr;
+  }
+
+  .hub-grid {
+    grid-template-columns: repeat(6, 1fr);
+  }
+
+  .resume-card,
+  .resume-card.featured {
+    grid-column: span 6;
+    grid-row: span 1;
+  }
+}
+
+
+
+
+
+/* ===== Bitrix Responsive ===== */
+@media (max-width: 900px) {
+  .bx-card {
+    grid-column: span 12;
+  }
+
+  .bx-timeline-item {
+    grid-template-columns: 1fr;
+  }
+}
+
+
+@media (max-width: 900px) {
+  .bx-case-block {
+    grid-column: span 12;
+  }
+}
+@media (max-width: 900px) {
+  .bx-cases { grid-template-columns: 1fr; }
+}
+
+
+
+/* ===== HOME RESPONSIVE ===== */
+@media (max-width: 900px) {
+  .home-hero {
+    grid-template-columns: 1fr;
+  }
+
+  .home-grid {
+    grid-template-columns: repeat(6, 1fr);
+  }
+
+  .home-card,
+  .home-card.featured {
+    grid-column: span 6;
+    grid-row: span 1;
+  }
+}

@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Resume Hub</title>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Orbitron:wght@400;600&display=swap"
+    rel="stylesheet"
+  >
+
+  <!-- Base styles -->
+  <link rel="stylesheet" href="../assets/css/base.css">
+  <link rel="stylesheet" href="../assets/css/layout.css">
+  <link rel="stylesheet" href="../assets/css/components.css">
+  <link rel="stylesheet" href="../assets/css/responsive.css">
+
+  <!-- Theme (HOME) -->
+  <link rel="stylesheet" href="../assets/css/theme-home.css">
+</head>
+
+<body>
+<canvas id="bg-stars" aria-hidden="true"></canvas>
+<canvas id="bg-fog" aria-hidden="true"></canvas>
+
+<header class="home-hero">
+  <div class="home-hero-left">
+    <h1 class="home-title">Professional Systems Hub</h1>
+    <p class="home-subtitle">
+      Архитектура профессиональных ролей.<br>
+      Каждое направление — самостоятельная система, объединённая мышлением,
+      ответственностью и результатом.
+    </p>
+  </div>
+
+  <!-- ВЕРХНИЕ РЕЖИМЫ (на уровне шапки) -->
+  <div class="home-modes" role="tablist" aria-label="Home modes">
+    <button class="home-mode" type="button" data-mode="recruiter" aria-pressed="false">Recruiter</button>
+    <button class="home-mode" type="button" data-mode="architect" aria-pressed="false">Architect</button>
+    <button class="home-mode" type="button" data-mode="personal" aria-pressed="false">Personal</button>
+  </div>
+
+  <!-- ПРАВАЯ КАРТА -->
+  <div class="home-panel">
+  <div class="home-panel-kicker" id="panel-kicker">Profile snapshot</div>
+  <div class="home-panel-title" id="panel-title">Denis · Systems & Automation</div>
+
+  <div class="home-panel-text" id="panel-text">
+    Режим: Recruiter — коротко и по делу: ценность, сильные стороны, результаты.
+  </div>
+
+  <div class="home-panel-stats" aria-label="Key metrics">
+    <div class="stat">
+      <span class="stat-num" id="stat-1-num">12</span>
+      <span class="stat-label" id="stat-1-label">Projects</span>
+    </div>
+    <div class="stat">
+      <span class="stat-num" id="stat-2-num">6</span>
+      <span class="stat-label" id="stat-2-label">Systems</span>
+    </div>
+    <div class="stat">
+      <span class="stat-num" id="stat-3-num">48</span>
+      <span class="stat-label" id="stat-3-label">Notes</span>
+    </div>
+  </div>
+
+  <div class="home-panel-actions" id="panel-actions">
+    <a class="home-btn" href="../resume/crm-bitrix24.html">Open CRM →</a>
+    <a class="home-btn ghost" href="../kb/index.html">Knowledge →</a>
+  </div>
+</div>
+
+</header>
+
+
+<main class="home-main">
+  <section class="home-grid animate-cards" aria-label="Направления резюме">
+
+    <a class="home-card featured active" data-module="crm" href="../resume/crm-bitrix24.html">
+  <div class="home-card-header">
+    <div class="home-card-title">CRM & Business Automation</div>
+    <span class="home-status active">Active</span>
+  </div>
+
+  <div class="home-card-desc">
+    Проектирование и внедрение CRM, автоматизация процессов и аналитика.
+  </div>
+
+  <!-- HOVER PANEL -->
+  <div class="home-hover">
+    <div class="home-hover-title">Key focus</div>
+    <ul class="home-hover-list">
+      <li>Bitrix24</li>
+      <li>Бизнес-процессы</li>
+      <li>Автоматизация</li>
+      <li>Интеграции</li>
+    </ul>
+    <div class="home-hover-action">Open →</div>
+  </div>
+</a>
+
+
+    <a class="home-card active" data-module="infra" href="../resume/sysadmin.html">
+  <div class="home-card-header">
+    <div class="home-card-title">IT / Infrastructure</div>
+    <span class="home-status active">Active</span>
+  </div>
+
+  <div class="home-card-desc">
+    Серверы, сети, администрирование, надёжность.
+  </div>
+
+  <div class="home-hover">
+    <div class="home-hover-title">Key focus</div>
+    <ul class="home-hover-list">
+      <li>Linux / Windows Server</li>
+      <li>Networking</li>
+      <li>Monitoring</li>
+      <li>Security</li>
+    </ul>
+    <div class="home-hover-action">Open →</div>
+  </div>
+</a>
+
+
+    <a class="home-card" data-module="devops" href="../resume/devops.html">
+      <div class="home-card-title">DevOps</div>
+      <div class="home-card-desc">
+        Контейнеризация, деплой, CI/CD и управление жизненным циклом сервисов.
+      </div>
+      <span class="home-tag">Automation</span>
+    </a>
+
+    <a class="home-card" data-module="strategy" href="#">
+      <div class="home-card-title">Product & Business</div>
+      <div class="home-card-desc">
+        Логика продукта, ценность, стратегия и рост.
+      </div>
+      <span class="home-tag">Strategy</span>
+    </a>
+
+    <a class="home-card active" data-module="creative" href="#">
+  <div class="home-card-header">
+    <div class="home-card-title">Creative&Concepts</div>
+    <span class="home-status active">Vision</span>
+  </div>
+
+  <div class="home-card-desc">
+    Идеи,смыслы,нестандартные форматы и системный креатив
+  </div>
+
+  <div class="home-hover">
+    <div class="home-hover-title">Key focus</div>
+    <ul class="home-hover-list">
+      <li>Стиль мышления</li>
+      <li>Видение мира</li>
+      <li>Стремление к невозможному</li>
+      
+    </ul>
+    <div class="home-hover-action">Open →</div>
+  </div>
+</a>
+
+
+    <a class="home-card future planned" data-module="knowledge" href="../kb/index.html">
+  <div class="home-card-header">
+    <div class="home-card-title">Knowledge Base</div>
+    <span class="home-status planned">Planned</span>
+  </div>
+
+  <div class="home-card-desc">
+    База знаний, заметки, схемы мышления.
+  </div>
+  <div class="home-hover">
+    <div class="home-hover-title">Purpose</div>
+    <ul class="home-hover-list">
+      <li>Системное мышление</li>
+      <li>Процессы</li>
+      <li>Идеи и гипотезы</li>
+    </ul>
+    <div class="home-hover-action">Explore →</div>
+  </div>
+</a>
+
+
+    <a class="home-card active" data-module="research" href="#">
+  <div class="home-card-header">
+    <div class="home-card-title">Research & Experiments</div>
+    <span class="home-status active">Planned</span>
+  </div>
+
+  <div class="home-card-desc">
+    Эксперименты, прототипы, гипотезы и R&amp;D.
+  </div>
+
+  <div class="home-hover">
+    <div class="home-hover-title">Key focus</div>
+    <ul class="home-hover-list">
+      <li>Поиск идей</li>
+      <li>Глубокий анализ</li>
+      <li>Разработка</li>
+      <li>AI</li>
+    </ul>
+    <div class="home-hover-action">Open →</div>
+  </div>
+</a>
+
+
+  </section>
+</main>
+
+<footer class="home-footer">
+  <div>© 2026 · Personal Systems Hub</div>
+  <div>Dark · Futuristic · Modular</div>
+</footer>
+
+<script src="../assets/js/main.js"></script>
+<script src="../assets/js/animations.js"></script>
+<script src="../assets/js/animation-manager.js"></script>
+<script src="../assets/js/bg-stars.js"></script>
+
+<script src="../assets/js/home-content.js"></script>
+<script src="../assets/js/home-modes.js"></script>
+
+
+
+</body>
+</html>

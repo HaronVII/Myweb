@@ -1,0 +1,28 @@
+/* ===== Bitrix Theme (ONLY theme styles) ===== */
+
+:root {
+  --bx-bg-main: #f4f7fb;
+  --bx-bg-card: #ffffff;
+  --bx-primary: #2fc6f6;
+  --bx-primary-dark: #0b66c3;
+  --bx-text-main: #1f2937;
+  --bx-text-muted: #6b7280;
+  --bx-border: #e5e7eb;
+}
+
+body {
+  background: linear-gradient(180deg, #eef3f8, var(--bx-bg-main));
+  color: var(--bx-text-main);
+}
+
+/* Header / Footer look */
+.bx-header {
+  background: linear-gradient(135deg, var(--bx-primary), var(--bx-primary-dark));
+  color: #ffffff;
+}
+
+.bx-footer {
+  background: #ffffff;
+  color: var(--bx-text-muted);
+  border-top: 1px solid var(--bx-border);
+}

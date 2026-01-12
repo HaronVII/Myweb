@@ -1,0 +1,16 @@
+# OS
+.DS_Store
+Thumbs.db
+
+# Editors
+.vscode/
+.idea/
+
+# Node (если вдруг появится)
+node_modules/
+
+# Logs
+*.log
+
+# Local only
+.env
